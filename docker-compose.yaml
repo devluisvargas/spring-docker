@@ -29,7 +29,7 @@ services:
       - network-microservices
 
   ms-comp-course:
-    image: ms-comp-course:v1
+    image: lbvargas/ms-comp-course:v1
     env_file:
       - ms-comp-course/.env
     restart: always
@@ -41,7 +41,7 @@ services:
       - network-microservices
 
   ms-comp-user:
-    image: ms-comp-user:v1
+    image: lbvargas/ms-comp-user:v1
     env_file:
       - ms-comp-user/.env
     restart: always
