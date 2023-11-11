@@ -58,6 +58,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    @Transactional
     public CourseDTO save(CourseDTO dto) {
         log.info("save course {}", gson.toJson(dto));
         Optional<Course> foundCourse = this.courseRepository.findByName(dto.name());
@@ -71,12 +72,20 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    @Transactional
     public void delete(Long id) {
         this.findById(id);
         this.courseRepository.deleteById(id);
     }
 
     @Override
+    @Transactional
+    public void deleteCourseUserById(Long id) {
+        courseRepository.deleteCourseUserById(id);
+    }
+
+    @Override
+    @Transactional
     public CourseDTO update(Long id, CourseDTO dto) {
         CourseDTO foundCourse = this.findById(id);
         Course Course = this.utilService.entityToDto(foundCourse);

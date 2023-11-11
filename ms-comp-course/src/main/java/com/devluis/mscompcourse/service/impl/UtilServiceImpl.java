@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Component
@@ -21,6 +22,9 @@ public class UtilServiceImpl implements UtilService {
 
     @Override
     public Course entityToDto(CourseDTO dto) {
+        if(Objects.isNull(dto.courseUsers())){
+            return new Course(dto.id(), dto.name(), List.of());
+        }
         List<CourseUser> collect = dto.courseUsers().stream().map(this::entityToDto).toList();
         return new Course(dto.id(), dto.name(), collect);
     }

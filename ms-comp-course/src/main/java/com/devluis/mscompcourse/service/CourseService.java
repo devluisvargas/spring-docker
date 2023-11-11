@@ -11,6 +11,7 @@ public interface CourseService {
     CourseDTO findByIdWithUsers(Long id);
     CourseDTO save(CourseDTO dto);
     void delete(Long id);
+    void deleteCourseUserById(Long id);
     CourseDTO update(Long id, CourseDTO dto);
     UserDTO assignUser(UserDTO userDTO, Long courseId);
     UserDTO createUser(UserDTO userDTO, Long courseId);

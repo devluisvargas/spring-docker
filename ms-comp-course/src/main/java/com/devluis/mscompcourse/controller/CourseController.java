@@ -43,7 +43,7 @@ public class CourseController {
     public ResponseEntity<Void> delete(@PathVariable Long id)
     {
         this.courseService.delete(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return ResponseEntity.noContent().build();
     }
 
 
@@ -63,4 +63,10 @@ public class CourseController {
         return ResponseEntity.status(HttpStatus.CREATED).body(courseService.createUser(dto, courseId));
     }
 
+    @DeleteMapping("/deleteUser/{id}")
+    public ResponseEntity<Void> deleteCourseUserById(@PathVariable Long id)
+    {
+        this.courseService.deleteCourseUserById(id);
+        return ResponseEntity.noContent().build();
+    }
 }
