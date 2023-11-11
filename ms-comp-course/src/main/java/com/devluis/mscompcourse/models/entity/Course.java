@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "courses")
 @Getter @Setter
@@ -17,4 +20,14 @@ public class Course {
     private Long id;
     private String name;
 
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "course_id")
+    private List<CourseUser> courseUsers = new ArrayList<>();
+
+    public void addCourseUser(CourseUser courseUser){
+        courseUsers.add(courseUser);
+    }
+    public void removeCourseUser(CourseUser courseUser){
+        courseUsers.remove(courseUser);
+    }
 }

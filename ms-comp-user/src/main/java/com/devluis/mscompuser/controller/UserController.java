@@ -2,6 +2,7 @@ package com.devluis.mscompuser.controller;
 
 import com.devluis.mscompuser.models.dto.UserDTO;
 import com.devluis.mscompuser.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,12 +28,12 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<UserDTO> save(@RequestBody UserDTO dto) {
+    public ResponseEntity<UserDTO> save(@RequestBody @Valid UserDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.save(dto));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserDTO> update(@PathVariable Long id, @RequestBody UserDTO dto) {
+    public ResponseEntity<UserDTO> update(@PathVariable Long id, @RequestBody @Valid UserDTO dto) {
         return ResponseEntity.ok(userService.update(id, dto));
     }
 

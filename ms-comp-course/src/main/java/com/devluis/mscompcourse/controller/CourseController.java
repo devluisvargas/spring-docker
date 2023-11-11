@@ -1,7 +1,9 @@
 package com.devluis.mscompcourse.controller;
 
 import com.devluis.mscompcourse.models.dto.CourseDTO;
+import com.devluis.mscompcourse.models.dto.UserDTO;
 import com.devluis.mscompcourse.service.CourseService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,12 +29,12 @@ public class CourseController {
     }
 
     @PostMapping
-    public ResponseEntity<CourseDTO> save(@RequestBody CourseDTO dto) {
+    public ResponseEntity<CourseDTO> save(@RequestBody @Valid CourseDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(courseService.save(dto));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CourseDTO> update(@PathVariable Long id, @RequestBody CourseDTO dto) {
+    public ResponseEntity<CourseDTO> update(@PathVariable Long id, @RequestBody @Valid CourseDTO dto) {
         return ResponseEntity.ok(courseService.update(id, dto));
     }
 
@@ -42,6 +44,23 @@ public class CourseController {
     {
         this.courseService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+
+    @PutMapping("/assignUser/{courseId}")
+    public ResponseEntity<UserDTO> assignUser(@PathVariable Long courseId, @RequestBody @Valid UserDTO dto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(courseService.assignUser(dto, courseId));
+    }
+
+
+    @PutMapping("/unAssignUser/{courseId}")
+    public ResponseEntity<UserDTO> unAssignUser(@PathVariable Long courseId, @RequestBody @Valid UserDTO dto) {
+        return ResponseEntity.ok(courseService.unAssignUser(dto, courseId));
+    }
+
+    @PutMapping("/createUser/{courseId}")
+    public ResponseEntity<UserDTO> createUser(@PathVariable Long courseId, @RequestBody @Valid UserDTO dto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(courseService.createUser(dto, courseId));
     }
 
 }
