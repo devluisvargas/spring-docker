@@ -31,3 +31,5 @@ build/
 
 ### VS Code ###
 .vscode/
+!**/src/main/**/resources/*.properties
+ms-comp-usuasrio/src/main/resources/application.properties
