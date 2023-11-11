@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@FeignClient(name = "ms-comp-user", url = "localhost:8001/user")
+@FeignClient(name = "ms-comp-user", url = "${ms.user.url}")
 public interface UserClientRest {
     @GetMapping("/{id}")
     UserDTO findById(@PathVariable Long id);

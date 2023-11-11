@@ -1,10 +1,10 @@
 spring.application.name=ms-comp-user
-server.port=8001
+server.port=${PORT:8001}
 
 #DATASOURCE
-spring.datasource.url=
-spring.datasource.username=
-spring.datasource.password=
+spring.datasource.url=jdbc:postgresql://${DB_HOST:localhost:5432}/${DB_NAME:db-comp-user}
+spring.datasource.username=${DB_USER:postgres}
+spring.datasource.password=${DB_PASSWORD:admin}
 spring.datasource.driver-class-name=org.postgresql.Driver
 
 #JPA
@@ -13,3 +13,6 @@ spring.jpa.generate-ddl=true
 spring.jpa.hibernate.ddl-auto=update
 spring.jpa.show-sql=false
 logging.level.org.hibernate.SQL=debug
+logging.file.path=/app/logs
+#URL MICROSERVICE USER
+ms.course.url=${MS-COMP-COURSE:localhost:8002/course}
