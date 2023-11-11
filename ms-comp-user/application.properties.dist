@@ -15,4 +15,4 @@ spring.jpa.show-sql=false
 logging.level.org.hibernate.SQL=debug
 logging.file.path=/app/logs
 #URL MICROSERVICE USER
-ms.course.url=${MS-COMP-COURSE:localhost:8002/course}
+ms.course.url=${MS_COMP_COURSE:localhost:8002/course}

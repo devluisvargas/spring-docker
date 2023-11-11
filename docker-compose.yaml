@@ -1,0 +1,62 @@
+version: "3.8"
+services:
+  db-comp-user:
+    container_name: db-comp-user
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: db-comp-user
+    volumes:
+      - data-postgres:/var/lib/postgresql/data
+    restart: always
+    ports:
+      - "5432:5432"
+    networks:
+      - network-microservices
+
+  db-comp-course:
+    container_name: db-comp-course
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: db-comp-course
+    volumes:
+      - data-mysql:/var/lib/mysql
+    restart: always
+    ports:
+      - "3306:3306"
+    networks:
+      - network-microservices
+
+  ms-comp-course:
+    image: ms-comp-course:v1
+    env_file:
+      - ms-comp-course/.env
+    restart: always
+    ports:
+      - "8002:8002"
+    depends_on:
+      - db-comp-course
+    networks:
+      - network-microservices
+
+  ms-comp-user:
+    image: ms-comp-user:v1
+    env_file:
+      - ms-comp-user/.env
+    restart: always
+    ports:
+      - "8001:8001"
+    depends_on:
+      - db-comp-user
+    networks:
+      - network-microservices
+
+
+volumes:
+  data-mysql:
+    name: data-mysql
+  data-postgres:
+    name: data-postgres
+networks:
+  network-microservices:
