@@ -3,6 +3,7 @@ package com.devluis.mscompcourse.service.impl;
 
 import com.devluis.mscompcourse.clients.UserClientRest;
 import com.devluis.mscompcourse.models.dto.CourseDTO;
+import com.devluis.mscompcourse.models.dto.CourseUserDTO;
 import com.devluis.mscompcourse.models.dto.UserDTO;
 import com.devluis.mscompcourse.models.entity.Course;
 import com.devluis.mscompcourse.models.entity.CourseUser;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -28,7 +30,7 @@ public class CourseServiceImpl implements CourseService {
     private final CourseRepository courseRepository;
     private final UtilService utilService;
     private final UserClientRest userClientRest;
-    private final Gson gson = new Gson();
+    private final Gson gson;
 
     @Override
     public List<CourseDTO> findAll() {
@@ -43,8 +45,21 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    public CourseDTO findByIdWithUsers(Long id) {
+        CourseDTO courseDTO = this.findById(id);
+        List<UserDTO> users = new ArrayList<>();
+        List<Long> idUsers = courseDTO.courseUsers().stream().map(CourseUserDTO::userId).toList();
+        try {
+            users = userClientRest.findUsers(idUsers);
+        } catch (Exception e) {
+            log.error("assignUser error {}", e.getMessage());
+        }
+        return new CourseDTO(courseDTO.id(), courseDTO.name(), courseDTO.courseUsers(), users);
+    }
+
+    @Override
     public CourseDTO save(CourseDTO dto) {
-        log.info("save course {}",gson.toJson(dto));
+        log.info("save course {}", gson.toJson(dto));
         Optional<Course> foundCourse = this.courseRepository.findByName(dto.name());
         if (foundCourse.isPresent()) {
             log.error("Already Course with name {}", dto.name());

@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -56,5 +57,10 @@ public class UserServiceImpl implements UserService {
         user.setEmail(dto.email());
         user.setPassword(dto.password());
         return this.utilService.dtoToEntity(this.userRepository.save(user));
+    }
+
+    @Override
+    public List<UserDTO> findAllById(Iterable<Long> ids) {
+        return this.userRepository.findAllById(ids).stream().map(utilService::dtoToEntity).toList();
     }
 }

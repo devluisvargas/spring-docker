@@ -25,7 +25,7 @@ public class CourseController {
 
     @GetMapping("/{id}")
     public ResponseEntity<CourseDTO> findById(@PathVariable Long id) {
-        return ResponseEntity.ok(courseService.findById(id));
+        return ResponseEntity.ok(courseService.findByIdWithUsers(id));
     }
 
     @PostMapping

@@ -45,4 +45,10 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @GetMapping("/course")
+    public ResponseEntity<List<UserDTO>> findUsers(@RequestParam List<Long> ids) {
+        return ResponseEntity.ok(userService.findAllById(ids));
+    }
+
+
 }
