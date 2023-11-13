@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ms-comp-user
+data:
+  port: "8001"
+  db_host: "db-comp-user:5432"
+  db_name: "db-comp-user"
+  db_user: "postgres"
+  db_password: "admin"
+  ms_comp_course: "ms-comp-course:8002/course"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ms-comp-course
+data:
+  port: "8002"
+  db_host: "db-comp-course:3306"
+  db_name: "db-comp-course"
+  db_user: "root"
+  db_password: "admin"
+  ms_comp_user: "ms-comp-user:8001/user"
