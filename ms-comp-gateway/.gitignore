@@ -31,7 +31,3 @@ build/
 
 ### VS Code ###
 .vscode/
-ms-comp-user/src/main/resources/application.properties
-ms-comp-course/src/main/resources/application.properties
-ms-comp-gateway/src/main/resources/application.properties
-ms-comp-gateway/src/main/resources/application.yml

@@ -1,0 +1,2 @@
+spring.application.name=ms-comp-gateway
+server.port=8080
