@@ -15,4 +15,6 @@ spring.jpa.show-sql=false
 logging.level.org.hibernate.SQL=debug
 logging.file.path=/app/logs
 #URL MICROSERVICE USER
-ms.course.url=${MS_COMP_COURSE:localhost:8002/course}
+#ms.course.url=${MS_COMP_COURSE:localhost:8002/course}
+spring.cloud.kubernetes.secrets.enable-api=true
+spring.cloud.kubernetes.discovery.all-namespaces=true

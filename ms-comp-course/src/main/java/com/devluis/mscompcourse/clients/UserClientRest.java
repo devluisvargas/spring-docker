@@ -6,14 +6,14 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@FeignClient(name = "ms-comp-user", url = "${ms.user.url}")
+@FeignClient(name = "ms-comp-user")
 public interface UserClientRest {
-    @GetMapping("/{id}")
+    @GetMapping("/user/{id}")
     UserDTO findById(@PathVariable Long id);
 
-    @PostMapping
+    @PostMapping("/user")
     UserDTO create(@RequestBody UserDTO userDTO);
 
-    @GetMapping("/course")
+    @GetMapping("/user/course")
     List<UserDTO> findUsers(@RequestParam Iterable<Long> ids);
 }

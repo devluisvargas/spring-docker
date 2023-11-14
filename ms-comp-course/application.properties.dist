@@ -14,4 +14,6 @@ spring.jpa.show-sql=false
 logging.level.org.hibernate.SQL=debug
 logging.file.path=/app/logs
 #URL MICROSERVICE USER
-ms.user.url=${MS-COMP-USER:localhost:8001/user}
+#ms.user.url=${MS-COMP-USER:localhost:8001/user}
+spring.cloud.kubernetes.secrets.enable-api=true
+spring.cloud.kubernetes.discovery.all-namespaces=true
